@@ -1,4 +1,4 @@
-import { IThread } from "./interface";
+import { IPost, IThread } from "./interface";
 
 export function getThreads(setThreads: (threads: IThread[]) => void): void {
     fetch(import.meta.env.VITE_THREADS_API_BASE_URL + "/threads")
@@ -31,6 +31,28 @@ export function createThread(
         })
         .catch((err) => {
             console.error(err);
+            onError(err.message);
+        });
+}
+
+export function getThreadPosts(
+    threadId: string,
+    onSuccess: (json: IPost[]) => void,
+    onError: (errorMessage: string) => void
+): void {
+    console.log(`${import.meta.env.VITE_THREADS_API_BASE_URL}/threads/${threadId}/posts`);
+    fetch(`${import.meta.env.VITE_THREADS_API_BASE_URL}/threads/${threadId}/posts`)
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then((json) => {
+            onSuccess(json);
+        })
+        .catch((err) => {
+            console.error("Error fetching thread posts:", err);
             onError(err.message);
         });
 }

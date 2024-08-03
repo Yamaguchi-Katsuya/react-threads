@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LatestThreads from './components/LatestThreads';
 import NewThread from './components/threads/NewThread';
+import ThreadPosts from './components/threads/ThreadPosts';
 
 function App(): React.JSX.Element {
   return (
@@ -11,6 +12,7 @@ function App(): React.JSX.Element {
         <Routes>
           <Route path="/" element={<LatestThreads />} />
           <Route path="/threads/new" element={<NewThread />} />
+          <Route path="/threads/:thread_id" element={<ThreadPosts />} />
         </Routes>
       </main>
     </Router>
