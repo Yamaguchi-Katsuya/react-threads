@@ -25,8 +25,7 @@ export function createThread(
             }
             return res.json();
         })
-        .then((json) => {
-            console.log(json);
+        .then(() => {
             onSuccess();
         })
         .catch((err) => {
@@ -40,7 +39,6 @@ export function getThreadPosts(
     onSuccess: (json: IPost[]) => void,
     onError: (errorMessage: string) => void
 ): void {
-    console.log(`${import.meta.env.VITE_THREADS_API_BASE_URL}/threads/${threadId}/posts`);
     fetch(`${import.meta.env.VITE_THREADS_API_BASE_URL}/threads/${threadId}/posts`)
         .then((res) => {
             if (!res.ok) {
@@ -49,10 +47,38 @@ export function getThreadPosts(
             return res.json();
         })
         .then((json) => {
-            onSuccess(json);
+            onSuccess(json.posts);
         })
         .catch((err) => {
             console.error("Error fetching thread posts:", err);
+            onError(err.message);
+        });
+}
+
+export function createPost(
+    threadId: string,
+    post: string,
+    onSuccess: () => void,
+    onError: (errorMessage: string) => void
+): void {
+    fetch(`${import.meta.env.VITE_THREADS_API_BASE_URL}/threads/${threadId}/posts`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ post }),
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(() => {
+            onSuccess();
+        })
+        .catch((err) => {
+            console.error(err);
             onError(err.message);
         });
 }
