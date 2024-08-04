@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import Thread from "../ui/Thread"
+import React, { useEffect, useState } from "react";
+import Thread from "../ui/Thread";
 import { getThreads } from "../lib/data";
 import { IThread } from "../lib/interface";
 import { Link } from "react-router-dom";
@@ -19,12 +19,12 @@ export default function LatestThreads(): React.JSX.Element {
                 </Link>
                 <ul className="border border-solid border-black text-center text-base w-full">
                     {threads.map((thread) => (
-                        <Link to={`/threads/${thread.id}`}>
-                            <Thread key={thread.id} thread={thread.title} />
+                        <Link key={thread.id} to={`/threads/${thread.id}`}>
+                            <Thread thread={thread.title} />
                         </Link>
                     ))}
                 </ul>
             </section >
         </>
-    )
+    );
 }
