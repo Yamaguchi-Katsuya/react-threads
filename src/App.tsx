@@ -1,21 +1,19 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LatestThreads from './components/LatestThreads';
+import { Routes, Route } from "react-router-dom";
 import NewThread from './components/threads/NewThread';
 import ThreadPosts from './components/threads/ThreadPosts';
+import Home from './components/Home';
 
 function App(): React.JSX.Element {
   return (
-    <Router>
-      <main className="w-full m-auto">
-        <Routes>
-          <Route path="/" element={<LatestThreads />} />
-          <Route path="/threads/new" element={<NewThread />} />
-          <Route path="/threads/:thread_id" element={<ThreadPosts />} />
-        </Routes>
-      </main>
-    </Router>
+    <main className="w-full m-auto">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/threads/new" element={<NewThread />} />
+        <Route path="/threads/:threadId" element={<ThreadPosts />} />
+      </Routes>
+    </main>
   );
 }
 

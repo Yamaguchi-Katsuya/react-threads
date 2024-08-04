@@ -11,3 +11,10 @@ export interface IThreadPostsResponse {
     threadId: string;
     posts: IPost[];
 }
+
+export interface ITextField {
+    label: string;
+    name: string;
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+}
